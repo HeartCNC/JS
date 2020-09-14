@@ -55,7 +55,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: './src/index.html',
+      template: 'index.html',
       inject: true
     }),
     // copy custom static assets
@@ -83,7 +83,7 @@ module.exports = new Promise((resolve, reject) => {
       // Add FriendlyErrorsPlugin
       devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
         compilationSuccessInfo: {
-          messages: [`Your application is running here: http://${devWebpackConfig.devServer.host}:${port}`]
+          messages: [`Your application is running here: http://${devWebpackConfig.devServer.host === '0.0.0.0' ? '127.0.0.1' : devWebpackConfig.devServer.host}:${port}`]
         },
         onErrors: config.dev.notifyOnErrors
           ? utils.createNotifierCallback()
